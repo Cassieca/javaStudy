@@ -1,17 +1,50 @@
 package SumUp;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
-import java.awt.event.*;
 public class SumUp implements FilenameFilter{
 
 	public static void main(String[] args) {
-		File dirFile=new File("E:\\eclipse1\\SumUp\\src\\SumUp");//å½“å‰æ–‡ä»¶æ‰€åœ¨ç›®å½•
-		SumUp sumUp=new SumUp();//ç”¨äºåšè¿‡æ»¤å™¨
-		String fileName[]=dirFile.list(sumUp);//æŠŠç›®å½•ä¸‹çš„Javaæ–‡ä»¶åå­—ç»„æˆå­—ç¬¦é›†
+		StringBuffer dirBuffer=new StringBuffer("E:\\jst\\aaa");
+		StringBuffer dirBufferCopy=dirBuffer;
+		String dirString=dirBuffer.toString();
+		File dirFile=new File(dirString);//Ñ¡È¡Ä³Ò»ÎÄ¼şÄ¿Â¼
+		SumUp sumUp=new SumUp();//ÓÃÓÚ×ö¹ıÂËÆ÷
+		String fileName[]=dirFile.list(sumUp);//°ÑÄ¿Â¼ÏÂµÄJavaÎÄ¼şÃû×Ö×é³É×Ö·û¼¯
 		for(String name:fileName) {
 			System.out.println(name);
 		}
+		
+		File file[]=dirFile.listFiles();
+		for(int i=0;i<file.length;i++) {
+			if(file[i].isDirectory()) {
+				dirBufferCopy.append("\\\\");
+				dirBufferCopy.append(file[i].getName());
+				
+				dirBufferCopy=dirBuffer;
+				
+			}
+		}
+		
+		try {
+			FileWriter out=new FileWriter("summy.txt",true);
+			BufferedWriter bufferWrite=new BufferedWriter(out);
+			FileReader in=new FileReader("read.txt");
+			BufferedReader bufferRead=new BufferedReader(in);
+			int n=-1;
+//			while(n=in.read(fileName)!=-1) {
+//				out.write(fileName);
+//			}
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
