@@ -1,0 +1,35 @@
+1.sumUp(String dirname)方法怎么使用？
+在main类中修改dirname为想统计的目录的绝对路径。（如下）
+public static void main(String[] args) {
+		String dirname=new String("E:\\jst\\aaa");
+		SumUp.sumUp(dirname);
+	}
+	
+2.if(!listAllFiles(dirFile,fileList)) {
+			System.out.println("该目录不存在，请修改！");
+			return;
+		};
+	调用该类时，dirname不存在会在控制台输出提示语。
+	调用自己写的listAllFiles（）方法，遍历dirFile目录，结果存在链表fileList中。
+	具体说明：listAllFiles（File，String）：先列出所有文件名到files[]，for循环查询每个文件。循环中用File file=new File(dirFile,files[i])的形式定位到单个文件，
+		如果是Java文件，加入fileList链表，如果是目录，回调listAllFiles方法，参数改成子目录file和fileList。
+		
+	if(!dirFile.exists()||!dirFile.isDirectory()){
+			
+			return false;
+		}
+	false的时候表示目录不存在。
+		
+3.找到根目录，创建result文件夹
+		String[] root=dirname.split(":");
+		StringBuffer rootBuffer=new StringBuffer("");
+		rootBuffer.append(root[0]+":\\\\result");
+		String rootString=rootBuffer.toString();
+		new File(rootString).mkdir();
+	用：分隔目录名，冒号前面是根目录的名字，用StringBuffer在根目录后面加上"\\result"(要四个\是因为String里\是用特殊含义的，要加入普通的一个\得写作\\)
+	再toString变成String形式。
+	本来目录是\,String在写的时候都得\\,才可以传入正确的目录。
+4.bufferRead才可以读取一行  bufferWrite往合计文本文件里写东西 在方法里定义writer因为每次调用同一个，reader写在被调用的方法里因为每次读到文件不同。
+5.for循环遍历fileList链表，每次调用统计单个文件的那个方法。总计的数据用static，统计完一个加一次，每次往文本文件加单个文件信息，最后加总数据的信息。
+6.(line = bufferRead.readLine()) != null说明文件没读完，行数+1.
+7.line.matches("\\s*")用正则表达式判断是否为空白行，是的话行数+1
